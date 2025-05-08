@@ -140,6 +140,23 @@ func printMSG(message string) {
 	}
 }
 
+func showTree(tree []os.FileInfo) {
+
+	fmt.Println("..")
+
+	for _, v := range tree {
+		if v.IsDir() {
+			fmt.Println("[" + v.Name() + "]")
+		}
+	}
+	for _, v := range tree {
+		if !v.IsDir() {
+			fmt.Println(v.Name())
+		}
+	}
+
+}
+
 func main() {
 
 	Greeting()
@@ -172,13 +189,13 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
 	files, err := f.Readdir(0)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	for _, v := range files {
-		fmt.Println(v.Name(), v.IsDir())
-	}
+	showTree(files)
+
 }
